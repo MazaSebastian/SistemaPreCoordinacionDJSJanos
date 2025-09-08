@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auditoría del Sistema Janos - Sistema de Precoordinación DJ</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: white;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 15px;
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            border: none;
+        }
+        
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        h1 {
+            color: #667eea;
+            border-bottom: 3px solid #764ba2;
+            padding-bottom: 10px;
+            margin-top: 40px;
+            margin-bottom: 20px;
+        }
+        
+        h2 {
+            color: #764ba2;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+        
+        h3 {
+            color: #667eea;
+            margin-top: 25px;
+            margin-bottom: 10px;
+        }
+        
+        p {
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+        
+        ul, ol {
+            margin-bottom: 15px;
+            padding-left: 30px;
+        }
+        
+        li {
+            margin-bottom: 8px;
+        }
+        
+        code {
+            background-color: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            color: #e74c3c;
+        }
+        
+        pre {
+            background-color: #2d3748;
+            color: #e2e8f0;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 20px 0;
+            border-left: 4px solid #667eea;
+        }
+        
+        pre code {
+            background: none;
+            color: inherit;
+            padding: 0;
+        }
+        
+        .info-box {
+            background: linear-gradient(135deg, #f8f9ff 0%, #e8ecff 100%);
+            border: 2px solid rgba(102, 126, 234, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 4px solid #667eea;
+        }
+        
+        .warning-box {
+            background: #fff3cd;
+            border: 2px solid #ffeaa7;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 4px solid #f39c12;
+        }
+        
+        .success-box {
+            background: #d4edda;
+            border: 2px solid #c3e6cb;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 4px solid #28a745;
+        }
+        
+        .checklist {
+            background-color: #f8f9ff;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+            margin: 20px 0;
+        }
+        
+        .checklist input[type="checkbox"] {
+            margin-right: 10px;
+            transform: scale(1.2);
+        }
+        
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 20px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        
+        th {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            font-weight: bold;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #f8f9ff;
+        }
+        
+        .toc {
+            background: #f8f9ff;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 4px solid #667eea;
+        }
+        
+        .toc ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .toc li {
+            margin: 8px 0;
+        }
+        
+        .toc a {
+            color: #667eea;
+            text-decoration: none;
+        }
+        
+        .toc a:hover {
+            text-decoration: underline;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            background: #f8f9ff;
+            border-radius: 10px;
+            color: #666;
+        }
+        
+        .print-button {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .print-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+        
+        @media print {
+            .print-button {
+                display: none;
+            }
+            
+            body {
+                max-width: none;
+                margin: 0;
+                padding: 0;
+            }
+            
+            .header {
+                background: #667eea !important;
+                -webkit-print-color-adjust: exact;
+                color-adjust: exact;
+            }
+            
+            pre {
+                background: #2d3748 !important;
+                -webkit-print-color-adjust: exact;
+                color-adjust: exact;
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="print-button" onclick="window.print()">🖨️ Imprimir PDF</button>
+    
+    <div class="header">
+        <h1>🔍 Auditoría del Sistema Janos</h1>
+        <p>Guía Completa para Integración con Sistema de Precoordinación DJ</p>
+    </div>
+
+    <div class="toc">
+        <h2>📋 Tabla de Contenidos</h2>
+        <ul>
+            <li><a href="#informacion-general">1. Información General</a></li>
+            <li><a href="#identificacion-componentes">2. Identificación de Componentes</a></li>
+            <li><a href="#analisis-estructura">3. Análisis de Estructura de Datos</a></li>
+            <li><a href="#herramientas-auditoria">4. Herramientas de Auditoría</a></li>
+            <li><a href="#cuestionario">5. Cuestionario de Auditoría</a></li>
+            <li><a href="#herramientas-diagnostico">6. Herramientas de Diagnóstico</a></li>
+            <li><a href="#documentacion">7. Documentación de Hallazgos</a></li>
+            <li><a href="#plan-implementacion">8. Plan de Implementación</a></li>
+            <li><a href="#checklist">9. Checklist de Auditoría</a></li>
+        </ul>
+    </div>
+
+    <section id="informacion-general">
+        <h1>📊 Información General</h1>
+        
+        <div class="info-box">
+            <h3>Objetivo</h3>
+            <p>Realizar una auditoría completa del sistema Janos actual para planificar la integración con el sistema de precoordinación musical desarrollado.</p>
+        </div>
+        
+        <div class="info-box">
+            <h3>Alcance</h3>
+            <ul>
+                <li>Análisis de la estructura de base de datos</li>
+                <li>Identificación de procesos actuales</li>
+                <li>Evaluación de puntos de integración</li>
+                <li>Planificación de modificaciones necesarias</li>
+            </ul>
+        </div>
+        
+        <div class="success-box">
+            <h3>Beneficios Esperados</h3>
+            <ul>
+                <li>Integración completa entre sistemas</li>
+                <li>Automatización del proceso de precoordinación</li>
+                <li>Mejora en la experiencia del cliente</li>
+                <li>Optimización de procesos operativos</li>
+            </ul>
+        </div>
+    </section>
+
+    <section id="identificacion-componentes">
+        <h1>🔍 Identificación de Componentes</h1>
+        
+        <h2>1.1 Información del Sistema Actual</h2>
+        <div class="info-box">
+            <p><strong>Información Básica del Sistema:</strong></p>
+            <ul>
+                <li><strong>Tipo de sistema:</strong> [CRM, ERP, Sistema personalizado, etc.]</li>
+                <li><strong>Tecnología:</strong> [PHP, .NET, Java, Python, etc.]</li>
+                <li><strong>Base de datos:</strong> [MySQL, PostgreSQL, SQL Server, Oracle, etc.]</li>
+                <li><strong>Ubicación:</strong> [Servidor local, cloud, hosting]</li>
+                <li><strong>Mantenimiento:</strong> [Desarrollador interno, empresa externa]</li>
+            </ul>
+        </div>
+        
+        <h2>1.2 Acceso y Permisos</h2>
+        <div class="checklist">
+            <p><strong>Acceso al Sistema:</strong></p>
+            <ul>
+                <li><input type="checkbox"> Credenciales de administrador a la base de datos</li>
+                <li><input type="checkbox"> Permisos de lectura/escritura</li>
+                <li><input type="checkbox"> Acceso a documentación técnica</li>
+                <li><input type="checkbox"> APIs existentes disponibles</li>
+                <li><input type="checkbox"> Capacidad de modificar estructura</li>
+            </ul>
+        </div>
+    </section>
+
+    <section id="analisis-estructura">
+        <h1>🗄️ Análisis de Estructura de Datos</h1>
+        
+        <h2>2.1 Tablas Principales (Probables)</h2>
+        <pre><code>-- Estructura típica que esperamos encontrar
+-- Necesitamos confirmar si existen estas tablas:
+
+-- Tabla de Eventos/Contratos
+eventos_contratos (
+  id,
+  codigo_contrato,
+  cliente_id,
+  tipo_evento,
+  fecha_evento,
+  hora_inicio,
+  hora_fin,
+  lugar,
+  estado,
+  vendedor_id,
+  fecha_creacion
+)
+
+-- Tabla de Clientes
+clientes (
+  id,
+  nombre,
+  apellido,
+  telefono,
+  email,
+  direccion,
+  fecha_registro
+)
+
+-- Tabla de Vendedores
+vendedores (
+  id,
+  nombre,
+  apellido,
+  email,
+  telefono,
+  activo
+)</code></pre>
+        
+        <h2>2.2 Campos Específicos para Integración DJ</h2>
+        <div class="warning-box">
+            <p><strong>Para la Integración DJ necesitamos:</strong></p>
+            <ul>
+                <li><strong>Código único del evento</strong> (6 dígitos)</li>
+                <li><strong>Información del cliente</strong> (nombre, teléfono, email)</li>
+                <li><strong>Tipo de evento</strong> (Boda, XV Años, Cumpleaños, Corporativo)</li>
+                <li><strong>Fecha y hora del evento</strong></li>
+                <li><strong>Lugar del evento</strong></li>
+                <li><strong>Estado del evento</strong></li>
+                <li><strong>Vendedor responsable</strong></li>
+            </ul>
+        </div>
+    </section>
+
+    <section id="herramientas-auditoria">
+        <h1>🛠️ Herramientas de Auditoría</h1>
+        
+        <h2>3.1 Script de Análisis de Base de Datos</h2>
+        <pre><code>-- Script para analizar la estructura (MySQL)
+-- Ejecutar en la base de datos de Janos
+
+-- 1. Ver todas las tablas
+SHOW TABLES;
+
+-- 2. Analizar tabla de eventos (ajustar nombre según corresponda)
+DESCRIBE eventos;
+-- o
+DESCRIBE contratos;
+-- o
+DESCRIBE ventas;
+
+-- 3. Ver estructura de clientes
+DESCRIBE clientes;
+
+-- 4. Ver estructura de vendedores
+DESCRIBE vendedores;
+
+-- 5. Ver datos de ejemplo
+SELECT * FROM eventos LIMIT 5;
+SELECT * FROM clientes LIMIT 5;
+SELECT * FROM vendedores LIMIT 5;</code></pre>
+        
+        <h2>3.2 Script de Análisis de Campos</h2>
+        <pre><code>-- Buscar campos relacionados con eventos
+SELECT 
+    TABLE_NAME,
+    COLUMN_NAME,
+    DATA_TYPE,
+    IS_NULLABLE,
+    COLUMN_DEFAULT
+FROM INFORMATION_SCHEMA.COLUMNS 
+WHERE TABLE_SCHEMA = 'nombre_base_datos'
+AND (
+    COLUMN_NAME LIKE '%evento%' OR
+    COLUMN_NAME LIKE '%contrato%' OR
+    COLUMN_NAME LIKE '%venta%' OR
+    COLUMN_NAME LIKE '%codigo%' OR
+    COLUMN_NAME LIKE '%cliente%' OR
+    COLUMN_NAME LIKE '%fecha%'
+)
+ORDER BY TABLE_NAME, ORDINAL_POSITION;</code></pre>
+    </section>
+
+    <section id="cuestionario">
+        <h1>📝 Cuestionario de Auditoría</h1>
+        
+        <h2>4.1 Preguntas sobre el Sistema Actual</h2>
+        <div class="info-box">
+            <h3>Funcionalidad Actual:</h3>
+            <ol>
+                <li>¿Cómo se crean los eventos/contratos actualmente?</li>
+                <li>¿Qué información se captura en el proceso de venta?</li>
+                <li>¿Cómo se genera el código del evento?</li>
+                <li>¿Qué estados tiene un evento? (pendiente, confirmado, completado, etc.)</li>
+                <li>¿Cómo se comunica la información al cliente?</li>
+                <li>¿Hay algún proceso de precoordinación actual?</li>
+            </ol>
+        </div>
+        
+        <div class="info-box">
+            <h3>Proceso de Ventas:</h3>
+            <ol>
+                <li>¿Quién crea los eventos? (vendedores, administradores)</li>
+                <li>¿Qué información es obligatoria vs opcional?</li>
+                <li>¿Cómo se confirma un evento?</li>
+                <li>¿Qué pasa después de confirmar un evento?</li>
+                <li>¿Hay notificaciones automáticas?</li>
+            </ol>
+        </div>
+        
+        <h2>4.2 Preguntas sobre Integración</h2>
+        <div class="warning-box">
+            <h3>Requisitos de Integración:</h3>
+            <ol>
+                <li>¿El sistema actual tiene APIs?</li>
+                <li>¿Hay documentación técnica disponible?</li>
+                <li>¿Quién puede hacer modificaciones al sistema?</li>
+                <li>¿Hay restricciones de seguridad?</li>
+                <li>¿Se puede crear una nueva tabla para precoordinaciones?</li>
+                <li>¿Hay otros sistemas que se integren con Janos?</li>
+            </ol>
+        </div>
+    </section>
+
+    <section id="herramientas-diagnostico">
+        <h1>🔧 Herramientas de Diagnóstico</h1>
+        
+        <h2>5.1 Script de Análisis Automático</h2>
+        <pre><code>// Script Node.js para analizar la base de datos
+const mysql = require('mysql2/promise')
+
+async function auditarSistemaJanos() {
+  const connection = await mysql.createConnection({
+    host: 'localhost',
+    user: 'usuario',
+    password: 'password',
+    database: 'janos_database'
+  })
+
+  try {
+    // 1. Obtener todas las tablas
+    const [tables] = await connection.execute('SHOW TABLES')
+    console.log('📋 Tablas encontradas:', tables)
+
+    // 2. Analizar cada tabla
+    for (const table of tables) {
+      const tableName = Object.values(table)[0]
+      console.log(`\n🔍 Analizando tabla: ${tableName}`)
+      
+      const [columns] = await connection.execute(`DESCRIBE ${tableName}`)
+      console.log('Columnas:', columns)
+      
+      const [sample] = await connection.execute(`SELECT * FROM ${tableName} LIMIT 3`)
+      console.log('Datos de ejemplo:', sample)
+    }
+
+    // 3. Buscar campos relacionados con eventos
+    const [eventFields] = await connection.execute(`
+      SELECT TABLE_NAME, COLUMN_NAME, DATA_TYPE 
+      FROM INFORMATION_SCHEMA.COLUMNS 
+      WHERE TABLE_SCHEMA = 'janos_database'
+      AND COLUMN_NAME LIKE '%evento%' OR COLUMN_NAME LIKE '%codigo%'
+    `)
+    console.log('\n🎯 Campos relacionados con eventos:', eventFields)
+
+  } catch (error) {
+    console.error('Error en auditoría:', error)
+  } finally {
+    await connection.end()
+  }
+}
+
+auditarSistemaJanos()</code></pre>
+    </section>
+
+    <section id="documentacion">
+        <h1>📊 Documentación de Hallazgos</h1>
+        
+        <h2>6.1 Plantilla de Reporte de Auditoría</h2>
+        <div class="info-box">
+            <h3>Estructura del Reporte:</h3>
+            <ul>
+                <li><strong>Información General:</strong> Sistema, tecnología, base de datos</li>
+                <li><strong>Estructura de Datos:</strong> Tablas principales y campos clave</li>
+                <li><strong>Proceso Actual:</strong> Flujo de ventas y puntos de integración</li>
+                <li><strong>Recomendaciones:</strong> Pasos siguientes para integración</li>
+            </ul>
+        </div>
+        
+        <h2>6.2 Estructura de Base de Datos para Integración</h2>
+        <pre><code>-- Tabla de Precoordinaciones (Nueva)
+CREATE TABLE precoordinaciones (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  codigo_evento VARCHAR(6) NOT NULL,
+  selecciones_musicales JSON NOT NULL,
+  fecha_completada DATETIME NOT NULL,
+  estado ENUM('pendiente', 'completada', 'revisada') DEFAULT 'pendiente',
+  notas_dj TEXT,
+  fecha_revision DATETIME,
+  FOREIGN KEY (codigo_evento) REFERENCES eventos(codigo)
+);
+
+-- Tabla de Historial de Precoordinaciones
+CREATE TABLE historial_precoordinaciones (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  codigo_evento VARCHAR(6) NOT NULL,
+  accion ENUM('iniciada', 'completada', 'revisada', 'modificada') NOT NULL,
+  fecha_accion DATETIME NOT NULL,
+  usuario VARCHAR(100),
+  detalles TEXT
+);</code></pre>
+    </section>
+
+    <section id="plan-implementacion">
+        <h1>🚀 Plan de Implementación</h1>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>Fase</th>
+                    <th>Duración</th>
+                    <th>Actividades</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Fase 1: Análisis</strong></td>
+                    <td>1-2 semanas</td>
+                    <td>
+                        <ul>
+                            <li>Auditoría del sistema Janos actual</li>
+                            <li>Identificación de tablas y campos</li>
+                            <li>Diseño de la API de integración</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>Fase 2: Backend</strong></td>
+                    <td>2-3 semanas</td>
+                    <td>
+                        <ul>
+                            <li>Crear API de integración</li>
+                            <li>Conectar con base de datos</li>
+                            <li>Implementar endpoints</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>Fase 3: Frontend</strong></td>
+                    <td>1-2 semanas</td>
+                    <td>
+                        <ul>
+                            <li>Actualizar validación de códigos</li>
+                            <li>Mostrar información real</li>
+                            <li>Integrar con API backend</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>Fase 4: Despliegue</strong></td>
+                    <td>1 semana</td>
+                    <td>
+                        <ul>
+                            <li>Pruebas de integración</li>
+                            <li>Despliegue en producción</li>
+                            <li>Capacitación del equipo</li>
+                        </ul>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <section id="checklist">
+        <h1>✅ Checklist de Auditoría</h1>
+        
+        <div class="checklist">
+            <h3>Acceso al Sistema</h3>
+            <ul>
+                <li><input type="checkbox"> Credenciales de base de datos</li>
+                <li><input type="checkbox"> Permisos de lectura/escritura</li>
+                <li><input type="checkbox"> Acceso a documentación</li>
+                <li><input type="checkbox"> APIs existentes identificadas</li>
+            </ul>
+        </div>
+        
+        <div class="checklist">
+            <h3>Estructura de Datos</h3>
+            <ul>
+                <li><input type="checkbox"> Tabla de eventos/contratos identificada</li>
+                <li><input type="checkbox"> Campos de cliente identificados</li>
+                <li><input type="checkbox"> Campos de vendedor identificados</li>
+                <li><input type="checkbox"> Código único del evento identificado</li>
+            </ul>
+        </div>
+        
+        <div class="checklist">
+            <h3>Proceso Actual</h3>
+            <ul>
+                <li><input type="checkbox"> Flujo de ventas documentado</li>
+                <li><input type="checkbox"> Estados de eventos identificados</li>
+                <li><input type="checkbox"> Notificaciones actuales identificadas</li>
+                <li><input type="checkbox"> Puntos de integración identificados</li>
+            </ul>
+        </div>
+        
+        <div class="checklist">
+            <h3>Requisitos Técnicos</h3>
+            <ul>
+                <li><input type="checkbox"> Tecnología del sistema identificada</li>
+                <li><input type="checkbox"> APIs existentes identificadas</li>
+                <li><input type="checkbox"> Restricciones de seguridad identificadas</li>
+                <li><input type="checkbox"> Capacidad de modificación evaluada</li>
+            </ul>
+        </div>
+    </section>
+
+    <div class="footer">
+        <h2>📞 Próximos Pasos</h2>
+        <div class="info-box">
+            <h3>Inmediatos:</h3>
+            <ol>
+                <li>Proporcionar información básica del sistema Janos</li>
+                <li>Acceder a la base de datos para análisis</li>
+                <li>Ejecutar scripts de auditoría</li>
+                <li>Documentar hallazgos</li>
+            </ol>
+        </div>
+        
+        <div class="success-box">
+            <h3>Siguientes:</h3>
+            <ol>
+                <li>Diseñar API de integración</li>
+                <li>Planificar modificaciones necesarias</li>
+                <li>Crear prototipo de integración</li>
+                <li>Probar con datos reales</li>
+            </ol>
+        </div>
+        
+        <p><strong>Fecha de creación:</strong> <script>document.write(new Date().toLocaleDateString('es-ES'))</script></p>
+        <p><strong>Versión:</strong> 1.0 | <strong>Estado:</strong> En proceso de auditoría</p>
+    </div>
+
+    <script>
+        // Función para marcar checkboxes como completados
+        function toggleCheckbox(checkbox) {
+            if (checkbox.checked) {
+                checkbox.parentElement.style.textDecoration = 'line-through';
+                checkbox.parentElement.style.color = '#28a745';
+            } else {
+                checkbox.parentElement.style.textDecoration = 'none';
+                checkbox.parentElement.style.color = '#333';
+            }
+        }
+        
+        // Agregar event listeners a todos los checkboxes
+        document.addEventListener('DOMContentLoaded', function() {
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            checkboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', function() {
+                    toggleCheckbox(this);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
