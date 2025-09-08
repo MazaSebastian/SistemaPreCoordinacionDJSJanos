@@ -1,0 +1,23 @@
+{
+  "name": "sistema-precoordinacion-backend",
+  "version": "1.0.0",
+  "description": "Backend para envío de emails del sistema de precoordinación DJS",
+  "main": "server.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "nodemailer": "^6.9.7",
+    "dotenv": "^16.3.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2"
+  },
+  "keywords": ["email", "precoordinacion", "djs", "backend"],
+  "author": "Sistema Precoordinación DJS",
+  "license": "MIT"
+}
