@@ -21,7 +21,6 @@ const XVAñosFlow = ({
   const [emailSent, setEmailSent] = useState(false)
 
   const handleSelection = (step, data) => {
-    console.log(`handleSelection called - step: ${step}, data:`, data)
     onSelectionUpdate(step, data)
   }
 
@@ -43,19 +42,11 @@ const XVAñosFlow = ({
   }
 
   const canProceed = (step) => {
-    console.log(`canProceed called - step: ${step}`)
-    console.log(`userSelections:`, userSelections)
-    console.log(`userSelections[${step}]:`, userSelections[step])
-    
     switch (step) {
       case 1: // Estilo de XV
-        const styleResult = !!userSelections[1]?.style
-        console.log(`Step 1 result:`, styleResult)
-        return styleResult
+        return !!userSelections[1]?.style
       case 2: // Música de Recepción y Cena
-        const receptionResult = !!(userSelections[2]?.receptionMusic && userSelections[2]?.dinnerMusic)
-        console.log(`Step 2 result:`, receptionResult)
-        return receptionResult
+        return !!(userSelections[2]?.receptionMusic && userSelections[2]?.dinnerMusic)
       case 3: // Ingreso a Recepción
         const receptionEntrance = userSelections[3]?.receptionEntrance
         if (receptionEntrance === 'no') return true

@@ -42,23 +42,23 @@ const CorporativoFlow = ({
   const canProceed = (step) => {
     switch (step) {
       case 1: // Tipo de Evento Corporativo
-        return userSelections[1]?.eventType
+        return !!userSelections[1]?.eventType
       case 2: // Música de Ambiente
-        return userSelections[2]?.ambientMusic
+        return !!userSelections[2]?.ambientMusic
       case 3: // Música para Networking
-        return userSelections[3]?.networkingMusic
+        return !!userSelections[3]?.networkingMusic
       case 4: // Música para Presentaciones
         const hasPresentations = userSelections[4]?.hasPresentations
         if (hasPresentations === 'no') return true
-        return hasPresentations === 'si' && userSelections[4]?.presentationMusic
+        return !!(hasPresentations === 'si' && userSelections[4]?.presentationMusic)
       case 5: // Música para Coffee Break
         const hasCoffeeBreak = userSelections[5]?.hasCoffeeBreak
         if (hasCoffeeBreak === 'no') return true
-        return hasCoffeeBreak === 'si' && userSelections[5]?.coffeeBreakMusic
+        return !!(hasCoffeeBreak === 'si' && userSelections[5]?.coffeeBreakMusic)
       case 6: // Música para Cierre
-        return userSelections[6]?.closingMusic
+        return !!userSelections[6]?.closingMusic
       case 7: // Artistas/Estilos Específicos
-        return userSelections[7]?.specificArtists && userSelections[7].specificArtists.trim().length > 0
+        return !!(userSelections[7]?.specificArtists && userSelections[7].specificArtists.trim().length > 0)
       case 8: // Confirmación Final
         return true
       default:

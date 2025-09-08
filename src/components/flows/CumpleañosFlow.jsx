@@ -42,27 +42,27 @@ const CumpleañosFlow = ({
   const canProceed = (step) => {
     switch (step) {
       case 1: // Estilo de Cumpleaños
-        return userSelections[1]?.style
+        return !!userSelections[1]?.style
       case 2: // Música de Ambiente
-        return userSelections[2]?.ambientMusic
+        return !!userSelections[2]?.ambientMusic
       case 3: // Ingreso al Salón
         const hasEntrance = userSelections[3]?.hasEntrance
         if (hasEntrance === 'no') return true
-        return hasEntrance === 'si' && userSelections[3]?.entranceSong
+        return !!(hasEntrance === 'si' && userSelections[3]?.entranceSong)
       case 4: // Canción de Cumpleaños
-        return userSelections[4]?.birthdaySong && userSelections[4].birthdaySong.trim().length > 0
+        return !!(userSelections[4]?.birthdaySong && userSelections[4].birthdaySong.trim().length > 0)
       case 5: // Géneros para Bailar
-        return userSelections[5]?.danceGenres?.length > 0
+        return !!(userSelections[5]?.danceGenres?.length > 0)
       case 6: // Artistas Favoritos
-        return userSelections[6]?.artists?.length > 0
+        return !!(userSelections[6]?.artists?.length > 0)
       case 7: // Actividades Especiales
         const hasActivities = userSelections[7]?.hasActivities
         if (hasActivities === 'no') return true
-        return hasActivities === 'si' && userSelections[7]?.activities
+        return !!(hasActivities === 'si' && userSelections[7]?.activities)
       case 8: // Ingreso en Carioca
         const hasCarioca = userSelections[8]?.hasCarioca
         if (hasCarioca === 'no') return true
-        return hasCarioca === 'si' && userSelections[8]?.cariocaSong
+        return !!(hasCarioca === 'si' && userSelections[8]?.cariocaSong)
       case 9: // Confirmación Final
         return true
       default:

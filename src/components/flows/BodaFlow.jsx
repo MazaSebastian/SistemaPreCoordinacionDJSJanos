@@ -43,33 +43,33 @@ const BodaFlow = ({
   const canProceed = (step) => {
     switch (step) {
       case 1: // Estilo de Boda
-        return userSelections[1]?.style
+        return !!userSelections[1]?.style
       case 2: // Música de Recepción y Cena
-        return userSelections[2]?.receptionMusic && userSelections[2]?.dinnerMusic
+        return !!(userSelections[2]?.receptionMusic && userSelections[2]?.dinnerMusic)
       case 3: // Ceremonia en el Salón
         const hasCeremony = userSelections[3]?.hasCeremony
         if (hasCeremony === 'no') return true // Si no hay ceremonia, puede avanzar
-        return hasCeremony === 'si' && userSelections[3]?.ceremonySong // Si hay, debe tener canción
+        return !!(hasCeremony === 'si' && userSelections[3]?.ceremonySong) // Si hay, debe tener canción
       case 4: // Canción de Ingreso al Salón
-        return userSelections[4]?.salonEntranceSong && userSelections[4].salonEntranceSong.trim().length > 0
+        return !!(userSelections[4]?.salonEntranceSong && userSelections[4].salonEntranceSong.trim().length > 0)
       case 5: // Géneros para Tandas de Baile
-        return userSelections[5]?.danceGenres?.length > 0
+        return !!(userSelections[5]?.danceGenres?.length > 0)
       case 6: // Artistas Favoritos
-        return userSelections[6]?.artists?.length > 0
+        return !!(userSelections[6]?.artists?.length > 0)
       case 7: // Canción para el Vals
         const waltzDance = userSelections[7]?.waltzDance
         if (waltzDance === 'no') return true
-        return waltzDance === 'si' && userSelections[7]?.waltzSong
+        return !!(waltzDance === 'si' && userSelections[7]?.waltzSong)
       case 8: // Canción para el Brindis
-        return userSelections[8]?.toastSong && userSelections[8].toastSong.trim().length > 0
+        return !!(userSelections[8]?.toastSong && userSelections[8].toastSong.trim().length > 0)
       case 9: // Coreografía
         const hasChoreography = userSelections[9]?.hasChoreography
         if (hasChoreography === 'no') return true // Si no hay coreografía, puede avanzar
-        return hasChoreography === 'si' && userSelections[9]?.choreographySong // Si hay, debe tener canción
+        return !!(hasChoreography === 'si' && userSelections[9]?.choreographySong) // Si hay, debe tener canción
       case 10: // Entrada en Carioca
         const hasCarioca = userSelections[10]?.hasCarioca
         if (hasCarioca === 'no') return true // Si no hay carioca, puede avanzar
-        return hasCarioca === 'si' && userSelections[10]?.cariocaSong // Si hay, debe tener canción
+        return !!(hasCarioca === 'si' && userSelections[10]?.cariocaSong) // Si hay, debe tener canción
       default:
         return true
     }
