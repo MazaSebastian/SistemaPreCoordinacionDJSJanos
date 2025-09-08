@@ -49,43 +49,43 @@ const XVAñosFlow = ({
     
     switch (step) {
       case 1: // Estilo de XV
-        const styleResult = userSelections[1]?.style
+        const styleResult = !!userSelections[1]?.style
         console.log(`Step 1 result:`, styleResult)
         return styleResult
       case 2: // Música de Recepción y Cena
-        const receptionResult = userSelections[2]?.receptionMusic && userSelections[2]?.dinnerMusic
+        const receptionResult = !!(userSelections[2]?.receptionMusic && userSelections[2]?.dinnerMusic)
         console.log(`Step 2 result:`, receptionResult)
         return receptionResult
       case 3: // Ingreso a Recepción
         const receptionEntrance = userSelections[3]?.receptionEntrance
         if (receptionEntrance === 'no') return true
-        return receptionEntrance === 'si' && userSelections[3]?.receptionEntranceSong
+        return !!(receptionEntrance === 'si' && userSelections[3]?.receptionEntranceSong)
       case 4: // Canción de Ingreso al Salón
-        return userSelections[4]?.salonEntranceSong && userSelections[4].salonEntranceSong.trim().length > 0
+        return !!(userSelections[4]?.salonEntranceSong && userSelections[4].salonEntranceSong.trim().length > 0)
       case 5: // Géneros para Tandas de Baile
-        return userSelections[5]?.danceGenres?.length > 0
+        return !!(userSelections[5]?.danceGenres?.length > 0)
       case 6: // Artistas Favoritos
-        return userSelections[6]?.artists?.length > 0
+        return !!(userSelections[6]?.artists?.length > 0)
       case 7: // Coreografía
         const choreography = userSelections[7]?.choreography
         if (choreography === 'no') return true
-        return choreography === 'si' && userSelections[7]?.choreographySong
+        return !!(choreography === 'si' && userSelections[7]?.choreographySong)
       case 8: // Canción para el Vals
         const waltzDance = userSelections[8]?.waltzDance
         if (waltzDance === 'no') return true
-        return waltzDance === 'si' && userSelections[8]?.waltzSong
+        return !!(waltzDance === 'si' && userSelections[8]?.waltzSong)
       case 9: // Canción para el Brindis
-        return userSelections[9]?.toastSong && userSelections[9].toastSong.trim().length > 0
+        return !!(userSelections[9]?.toastSong && userSelections[9].toastSong.trim().length > 0)
       case 10: // Ceremonia de Velas
         const candlesCeremony = userSelections[10]?.candlesCeremony
         if (candlesCeremony === 'no') return true
         const individualSongs = userSelections[10]?.individualSongs
-        if (individualSongs === 'no') return userSelections[10]?.candlesGeneralSong
-        return individualSongs === 'si' && userSelections[10]?.candlesList
+        if (individualSongs === 'no') return !!userSelections[10]?.candlesGeneralSong
+        return !!(individualSongs === 'si' && userSelections[10]?.candlesList)
       case 11: // Entrada en Carioca
         const cariocaEntrance = userSelections[11]?.cariocaEntrance
         if (cariocaEntrance === 'no') return true
-        return cariocaEntrance === 'si' && userSelections[11]?.cariocaEntranceSong
+        return !!(cariocaEntrance === 'si' && userSelections[11]?.cariocaEntranceSong)
       default:
         return true
     }
