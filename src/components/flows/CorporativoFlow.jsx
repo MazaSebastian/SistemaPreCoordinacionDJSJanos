@@ -58,7 +58,7 @@ const CorporativoFlow = ({
       case 6: // Música para Cierre
         return userSelections[6]?.closingMusic
       case 7: // Artistas/Estilos Específicos
-        return userSelections[7]?.specificArtists
+        return userSelections[7]?.specificArtists && userSelections[7].specificArtists.trim().length > 0
       case 8: // Confirmación Final
         return true
       default:

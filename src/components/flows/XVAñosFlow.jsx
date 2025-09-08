@@ -52,7 +52,7 @@ const XVAñosFlow = ({
         if (receptionEntrance === 'no') return true
         return receptionEntrance === 'si' && userSelections[3]?.receptionEntranceSong
       case 4: // Canción de Ingreso al Salón
-        return userSelections[4]?.salonEntranceSong
+        return userSelections[4]?.salonEntranceSong && userSelections[4].salonEntranceSong.trim().length > 0
       case 5: // Géneros para Tandas de Baile
         return userSelections[5]?.danceGenres?.length > 0
       case 6: // Artistas Favoritos
@@ -66,7 +66,7 @@ const XVAñosFlow = ({
         if (waltzDance === 'no') return true
         return waltzDance === 'si' && userSelections[8]?.waltzSong
       case 9: // Canción para el Brindis
-        return userSelections[9]?.toastSong
+        return userSelections[9]?.toastSong && userSelections[9].toastSong.trim().length > 0
       case 10: // Ceremonia de Velas
         const candlesCeremony = userSelections[10]?.candlesCeremony
         if (candlesCeremony === 'no') return true

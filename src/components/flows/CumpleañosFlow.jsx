@@ -50,7 +50,7 @@ const CumpleañosFlow = ({
         if (hasEntrance === 'no') return true
         return hasEntrance === 'si' && userSelections[3]?.entranceSong
       case 4: // Canción de Cumpleaños
-        return userSelections[4]?.birthdaySong
+        return userSelections[4]?.birthdaySong && userSelections[4].birthdaySong.trim().length > 0
       case 5: // Géneros para Bailar
         return userSelections[5]?.danceGenres?.length > 0
       case 6: // Artistas Favoritos
