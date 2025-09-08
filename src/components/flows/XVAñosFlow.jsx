@@ -42,24 +42,17 @@ const XVAñosFlow = ({
   }
 
   const canProceed = (step) => {
-    console.log(`canProceed step ${step}:`, userSelections[step])
     switch (step) {
       case 1: // Estilo de XV
-        const styleValid = userSelections[1]?.style
-        console.log('Step 1 style validation:', styleValid)
-        return styleValid
+        return userSelections[1]?.style
       case 2: // Música de Recepción y Cena
-        const receptionValid = userSelections[2]?.receptionMusic && userSelections[2]?.dinnerMusic
-        console.log('Step 2 music validation:', receptionValid, userSelections[2])
-        return receptionValid
+        return userSelections[2]?.receptionMusic && userSelections[2]?.dinnerMusic
       case 3: // Ingreso a Recepción
         const receptionEntrance = userSelections[3]?.receptionEntrance
         if (receptionEntrance === 'no') return true
         return receptionEntrance === 'si' && userSelections[3]?.receptionEntranceSong
       case 4: // Canción de Ingreso al Salón
-        const songValid = userSelections[4]?.salonEntranceSong && userSelections[4].salonEntranceSong.trim().length > 0
-        console.log('Step 4 song validation:', songValid, userSelections[4])
-        return songValid
+        return userSelections[4]?.salonEntranceSong && userSelections[4].salonEntranceSong.trim().length > 0
       case 5: // Géneros para Tandas de Baile
         return userSelections[5]?.danceGenres?.length > 0
       case 6: // Artistas Favoritos
@@ -138,7 +131,7 @@ const XVAñosFlow = ({
                     { value: 'bossa', label: 'Bossa' }
                   ]}
                   onSelection={(value) => handleSelection(2, { 
-                    ...userSelections[2], 
+                    ...(userSelections[2] || {}), 
                     receptionMusic: value 
                   })}
                   selected={userSelections[2]?.receptionMusic}
@@ -169,7 +162,7 @@ const XVAñosFlow = ({
                     { value: 'bossa', label: 'Bossa' }
                   ]}
                   onSelection={(value) => handleSelection(2, { 
-                    ...userSelections[2], 
+                    ...(userSelections[2] || {}), 
                     dinnerMusic: value 
                   })}
                   selected={userSelections[2]?.dinnerMusic}
@@ -508,7 +501,7 @@ const XVAñosFlow = ({
                     { value: 'no', label: 'No' }
                   ]}
                   onSelection={(value) => handleSelection(10, { 
-                    ...userSelections[10], 
+                    ...(userSelections[10] || {}), 
                     individualSongs: value 
                   })}
                   selected={userSelections[10]?.individualSongs}

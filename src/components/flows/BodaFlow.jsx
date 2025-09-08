@@ -122,7 +122,7 @@ const BodaFlow = ({
                     { value: 'acusticos', label: 'Acústicos' }
                   ]}
                   onSelection={(value) => handleSelection(2, { 
-                    ...userSelections[2], 
+                    ...(userSelections[2] || {}), 
                     receptionMusic: value 
                   })}
                   selected={userSelections[2]?.receptionMusic}
@@ -131,7 +131,7 @@ const BodaFlow = ({
                   placeholder="Sugerencias personalizadas para la recepción..."
                   value={userSelections[2]?.receptionSuggestions || ''}
                   onChange={(value) => handleSelection(2, { 
-                    ...userSelections[2], 
+                    ...(userSelections[2] || {}), 
                     receptionSuggestions: value 
                   })}
                 />
@@ -149,7 +149,7 @@ const BodaFlow = ({
                     { value: 'acusticos', label: 'Acústicos' }
                   ]}
                   onSelection={(value) => handleSelection(2, { 
-                    ...userSelections[2], 
+                    ...(userSelections[2] || {}), 
                     dinnerMusic: value 
                   })}
                   selected={userSelections[2]?.dinnerMusic}
@@ -158,7 +158,7 @@ const BodaFlow = ({
                   placeholder="Sugerencias personalizadas para la cena..."
                   value={userSelections[2]?.dinnerSuggestions || ''}
                   onChange={(value) => handleSelection(2, { 
-                    ...userSelections[2], 
+                    ...(userSelections[2] || {}), 
                     dinnerSuggestions: value 
                   })}
                 />
