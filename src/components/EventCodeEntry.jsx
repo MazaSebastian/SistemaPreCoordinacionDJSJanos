@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import TestLinks from './TestLinks'
 
 const EventCodeEntry = ({ onSubmit }) => {
   const [code, setCode] = useState('')
@@ -53,8 +52,6 @@ const EventCodeEntry = ({ onSubmit }) => {
           </button>
         </form>
       </div>
-      
-      <TestLinks />
     </div>
   )
 }
