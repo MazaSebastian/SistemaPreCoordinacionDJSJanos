@@ -42,17 +42,24 @@ const XVAñosFlow = ({
   }
 
   const canProceed = (step) => {
+    console.log(`canProceed step ${step}:`, userSelections[step])
     switch (step) {
       case 1: // Estilo de XV
-        return userSelections[1]?.style
+        const styleValid = userSelections[1]?.style
+        console.log('Step 1 style validation:', styleValid)
+        return styleValid
       case 2: // Música de Recepción y Cena
-        return userSelections[2]?.receptionMusic && userSelections[2]?.dinnerMusic
+        const receptionValid = userSelections[2]?.receptionMusic && userSelections[2]?.dinnerMusic
+        console.log('Step 2 music validation:', receptionValid, userSelections[2])
+        return receptionValid
       case 3: // Ingreso a Recepción
         const receptionEntrance = userSelections[3]?.receptionEntrance
         if (receptionEntrance === 'no') return true
         return receptionEntrance === 'si' && userSelections[3]?.receptionEntranceSong
       case 4: // Canción de Ingreso al Salón
-        return userSelections[4]?.salonEntranceSong && userSelections[4].salonEntranceSong.trim().length > 0
+        const songValid = userSelections[4]?.salonEntranceSong && userSelections[4].salonEntranceSong.trim().length > 0
+        console.log('Step 4 song validation:', songValid, userSelections[4])
+        return songValid
       case 5: // Géneros para Tandas de Baile
         return userSelections[5]?.danceGenres?.length > 0
       case 6: // Artistas Favoritos
