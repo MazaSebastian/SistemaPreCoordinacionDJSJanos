@@ -41,7 +41,7 @@ const EventCodeEntry = ({ onSubmit }) => {
               maxLength="6"
               required
             />
-            <small>Ingresa el código de 6 dígitos que te proporcionó el DJ</small>
+            <small>Ingresa el código del evento para comenzar la precoordinación musical</small>
           </div>
           
           <button 
